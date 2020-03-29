@@ -1,21 +1,55 @@
+"""Solve or help solving sudoku problems with visual results"""
 import pygame
 import no_backtracking_solution
 import backtracking_solution
 import starter_sudoku_sets
+import verifiers
 
-sudoku = starter_sudoku_sets.medium_sudoku
+# Let user choose whether they want help or they want a solution
+print("Welcome to the sudoku helper solver.")
+print("Do you wish for help[h] or do you want a solution[s]?")
+user_req = input("Enter choice ([h]/s): ")
 
-# get the solution of the sudoku
-last_solution, sudoku_dict = no_backtracking_solution.try_fill_in(sudoku)
+if "s" in user_req.lower():
+    get_sol = True
+    print("Solution will be prepared")
+else:
+    get_sol = False
+    print("Help will be made available")
 
-pygame.init()
+# Let user choose complexity of problem
+print("Complexity level: Medium[m] or Difficult[d]")
+user_complexity = input("Enter choice ([m]/d): ")
 
+if "d" in user_complexity.lower():
+    difficult = True
+    print("Will solve difficult problem")
+else:
+    difficult = False
+    print("Will solve medium problem")
+
+# Set the complexity and mode of help according to user choices above
+if difficult:
+    sudoku = starter_sudoku_sets.DIFFICULT_SUDOKU
+else:
+    sudoku = starter_sudoku_sets.MEDIUM_SUDOKU
+
+if get_sol:
+    last_solution = backtracking_solution.solve_and_return_result(sudoku)
+else:
+    last_solution = no_backtracking_solution.try_fill_in(sudoku)
+
+# Get unknown cells possible solutions
+solutions_dict = verifiers.get_suggestions(sudoku)
+
+# Pygame setup for view window
 dimension = 720
 step = 80
 margin = 2
 bgcolor = 255, 255, 255
 linecolor = 0, 0, 0
 
+pygame.init()
 screen = pygame.display.set_mode((dimension, dimension))
 pygame.display.set_caption("Sudoku Squares")
 
@@ -38,7 +72,7 @@ def game_loop():
             for y_ind, y in enumerate(range(0, dimension, step)):
 
                 # Convert data into formatted string objects for drawing
-                value_for_cell = last_solution[y_ind][x_ind] or sudoku_dict.get(
+                value_for_cell = last_solution[y_ind][x_ind] or solutions_dict.get(
                     (y_ind, x_ind)
                 )
                 if isinstance(value_for_cell, list):
