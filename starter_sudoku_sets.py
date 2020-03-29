@@ -1,4 +1,6 @@
-difficult_sudoku = [
+"""Bank of sudoku problems for user to choose from"""
+
+DIFFICULT_SUDOKU = [
     [0, 0, 7, 8, 1, 5, 6, 0, 0],
     [8, 0, 0, 9, 6, 3, 0, 0, 0],
     [0, 0, 0, 2, 4, 7, 0, 0, 0],
@@ -10,7 +12,7 @@ difficult_sudoku = [
     [1, 9, 0, 7, 0, 0, 0, 8, 0],
 ]
 
-medium_sudoku = [
+MEDIUM_SUDOKU = [
     [0, 7, 0, 0, 0, 0, 0, 0, 8],
     [8, 0, 9, 0, 2, 0, 7, 4, 0],
     [2, 0, 0, 0, 0, 1, 0, 3, 5],
