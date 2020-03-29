@@ -27,9 +27,7 @@ The challenge is to NOT watch the video again or research any type of backtracki
 
 ## TODO
 
-- Implement backtracking algorithm
 - Make pygame flip between initial problem and presented solution periodically
-- User should have power to choose which algorithm is used
 - Make pytests/doctests for all functions
 - Implement gitflow to run tests
 - Make each iteration of recursion visual, make it pretty
