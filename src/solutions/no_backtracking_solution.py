@@ -1,12 +1,11 @@
 """Solve Sudoku using recursion only"""
 from pprint import pprint
-from typing import List
 
-from verifiers import get_suggestions
-import starter_sudoku_sets
+from src import example_problems
+from src.helpers.suggestions import get_suggestions
 
 
-def try_fill_in(sudoku_square: List[List[int]]) -> List[List[int]]:
+def try_fill_in(sudoku_square: list[list[int]]) -> list[list[int]]:
     """
     Attempts will be made to fill in given sudoku square.
 
@@ -19,7 +18,7 @@ def try_fill_in(sudoku_square: List[List[int]]) -> List[List[int]]:
     print("received Sudoku square:")
     pprint(sudoku_square)
 
-    # get all possible values for each cell whille following the rules
+    # get all possible values for each cell while following the rules
     sudoku_dict = get_suggestions(sudoku_square)
 
     # Update sudoku square with found solutions
@@ -44,7 +43,7 @@ def try_fill_in(sudoku_square: List[List[int]]) -> List[List[int]]:
 if __name__ == "__main__":
 
     # Select a sudoku problem
-    sudoku = starter_sudoku_sets.DIFFICULT_SUDOKU
+    sudoku = example_problems.DIFFICULT_SUDOKU
 
     # Get last possible solution
     last_solution = try_fill_in(sudoku)

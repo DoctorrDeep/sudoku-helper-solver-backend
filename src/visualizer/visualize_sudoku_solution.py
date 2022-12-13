@@ -1,9 +1,10 @@
 """Solve or help solving sudoku problems with visual results"""
 import pygame
-import no_backtracking_solution
-import backtracking_solution
-import starter_sudoku_sets
-import verifiers
+
+from src.helpers.suggestions import get_suggestions
+from src.solutions import no_backtracking_solution
+from src.solutions import backtracking_solution
+from src import example_problems
 
 # Let user choose whether they want help or they want a solution
 print("Welcome to the sudoku helper solver.")
@@ -30,9 +31,9 @@ else:
 
 # Set the complexity and mode of help according to user choices above
 if difficult:
-    sudoku = starter_sudoku_sets.DIFFICULT_SUDOKU
+    sudoku = example_problems.DIFFICULT_SUDOKU
 else:
-    sudoku = starter_sudoku_sets.MEDIUM_SUDOKU
+    sudoku = example_problems.MEDIUM_SUDOKU
 
 if get_sol:
     last_solution = backtracking_solution.solve_and_return_result(sudoku)
@@ -40,7 +41,7 @@ else:
     last_solution = no_backtracking_solution.try_fill_in(sudoku)
 
 # Get unknown cells possible solutions
-solutions_dict = verifiers.get_suggestions(sudoku)
+solutions_dict = get_suggestions(sudoku)
 
 # Pygame setup for view window
 dimension = 720

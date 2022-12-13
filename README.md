@@ -4,9 +4,14 @@
 
 ## How to run
 
-- run on python 3.7 and up
-- `pip install -r requirements.txt`
-- `python visualize_sudoku_solution.py`
+- run on python 3.10.4 and up
+```bash
+pyenv shell 3.10.4
+poetry env use python3.10
+poetry install
+poetry shell
+python src/visualizer/visualize_sudoku_solution.py
+```
   - at present this shows how far we get with the non-backtracking algorithm
 
 ## Inspiration
@@ -27,7 +32,11 @@ The challenge is to NOT watch the video again or research any type of backtracki
 
 ## TODO
 
-- Make pygame flip between initial problem and presented solution periodically
 - Make pytests/doctests for all functions
+- Make REST service out of the solver with
+  - endpoint for hints when a problem is sent
+  - endpoint for solutions when a problem is sent
+- drop cli
+- Make pygame flip between initial problem and presented solution periodically
 - Implement gitflow to run tests
 - Make each iteration of recursion visual, make it pretty

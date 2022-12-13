@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "sudoku-helper-solver"
+version = "0.1.0"
+description = "Get help in solving a Sudoku puzzle"
+authors = ["Ambar Das"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "sudoku_helper_solver"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pygame = "^2.1.2"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
