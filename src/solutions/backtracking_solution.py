@@ -31,7 +31,6 @@ def solve(sudoku_square: list[list[int]], verbose: bool | None = False):
         # If cell is empty then attempt fill in
         if not sudoku_square[x][y]:
             for i in range(1, 10):
-
                 # If valid option found fill in the cell and
                 # try arriving at a solution with the use of recursion
                 if check_insert(sudoku_square, x, y, i):
@@ -61,8 +60,8 @@ def solve_and_return_result(sudoku_square: list[list[int]]) -> list[list[int]]:
 if __name__ == "__main__":
 
     # Select a sudoku problem
-    # sudoku = starter_sudoku_sets.MEDIUM_SUDOKU
-    sudoku = example_problems.DIFFICULT_SUDOKU
+    sudoku = example_problems.MEDIUM_SUDOKU
+    # sudoku = example_problems.DIFFICULT_SUDOKU
 
     # Get a possible complete solution
     # completed_sudoku = solve_and_return_result(sudoku)
@@ -70,6 +69,6 @@ if __name__ == "__main__":
     # pprint(completed_sudoku)
 
     # Get all possible solutions to a sudoku printed in terminal
-    solve(sudoku, verbose=True)
+    solve(sudoku, verbose=False)
     print("Completed sudoku")
     pprint(LAST_KNOWN_GOOD_SOLUTION)

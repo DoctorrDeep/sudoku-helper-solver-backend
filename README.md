@@ -27,16 +27,16 @@ The challenge is to NOT watch the video again or research any type of backtracki
 - `visualize_sudoku_solution.py`
   - this needs a sudoku square as input, which it gets from `starter_sudoku_sets.py`
   - it uses one of the solvers
-    - `no_backtracking_solution.py` --> Hardcoded to be used everytime
-    - `backtracking_solution.py` --> Not Implemented
+    - `no_backtracking_solution.py`
+    - `backtracking_solution.py`
 
 ## TODO
 
-- Make pytests/doctests for all functions
+- run ALL linters and tests through GH actions
 - Make REST service out of the solver with
   - endpoint for hints when a problem is sent
   - endpoint for solutions when a problem is sent
 - drop cli
+- Make pytests for all functions
 - Make pygame flip between initial problem and presented solution periodically
-- Implement gitflow to run tests
 - Make each iteration of recursion visual, make it pretty
