@@ -1,5 +1,5 @@
 """Make checks that various functions need to check rules"""
-from src.helpers.cube_locations_mapping import CUBE_XYS
+from . import CUBE_XYS
 
 
 def do_check(nums: list[int]) -> bool:
@@ -22,7 +22,7 @@ def do_check(nums: list[int]) -> bool:
     unique = len(set(nums)) == len(nums)
     correct = True
     for i in nums:
-        if not(0 < i < 10 and isinstance(i, int)):
+        if not (0 < i < 10 and isinstance(i, int)):
             correct = False
             break
 
@@ -62,4 +62,3 @@ def check_solution(sudoku_square: list[list[int]]) -> bool:
 
     # Combine all 3 results from above
     return check_hor and check_ver and check_cubes
-

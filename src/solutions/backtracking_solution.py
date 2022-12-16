@@ -2,24 +2,20 @@
 import copy
 from pprint import pprint
 
-from src.helpers.cube_locations_mapping import ALL_XYS
-from src.helpers.verifiers import check_solution
 from src import example_problems
+from src.helpers import ALL_XYS
+from src.helpers.verifiers import check_solution
 
 LAST_KNOWN_GOOD_SOLUTION = []
 
 
-def check_insert(
-    sudoku_square: list[list[int]], x: int, y: int, val_to_insert: int
-) -> list[list[int]]:
+def check_insert(sudoku_square: list[list[int]], x: int, y: int, val_to_insert: int) -> bool:
     """
     Check if inserting `val_to_insert` into position x row, y column
     is going to yield a valid sudoku block. Incomplete is valid too.
     """
-
     new_sudoku_square = copy.deepcopy(sudoku_square)
     new_sudoku_square[x][y] = val_to_insert
-
     return check_solution(new_sudoku_square)
 
 

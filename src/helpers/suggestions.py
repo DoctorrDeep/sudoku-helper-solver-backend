@@ -1,10 +1,11 @@
 import copy
 
-from src.helpers.cube_locations_mapping import ALL_XYS
 from src.helpers.verifiers import check_solution
 
+from . import ALL_XYS
 
-def get_suggestions(sudoku_square: list[list[int]]) -> dict[set[int], list[int]]:
+
+def get_suggestions(sudoku_square: list[list[int]]) -> dict[tuple[int, int], list[int]]:
     """
     Loop over all cells and for each cell get list of possible options
     """

@@ -1,10 +1,9 @@
 """Solve or help solving sudoku problems with visual results"""
 import pygame
 
-from src.helpers.suggestions import get_suggestions
-from src.solutions import no_backtracking_solution
-from src.solutions import backtracking_solution
 from src import example_problems
+from src.helpers.suggestions import get_suggestions
+from src.solutions import backtracking_solution, no_backtracking_solution
 
 # Let user choose whether they want help or they want a solution
 print("Welcome to the sudoku helper solver.")
@@ -73,9 +72,7 @@ def game_loop():
             for y_ind, y in enumerate(range(0, dimension, step)):
 
                 # Convert data into formatted string objects for drawing
-                value_for_cell = last_solution[y_ind][x_ind] or solutions_dict.get(
-                    (y_ind, x_ind)
-                )
+                value_for_cell = last_solution[y_ind][x_ind] or solutions_dict.get((y_ind, x_ind))
                 if isinstance(value_for_cell, list):
                     font_size = 12
                     value_for_cell = " ".join([str(i) for i in value_for_cell])
