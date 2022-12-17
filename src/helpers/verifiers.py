@@ -1,8 +1,9 @@
 """Make checks that various functions need to check rules"""
 from . import CUBE_XYS
+from .types import SudokuRow, SudokuSquare
 
 
-def do_check(nums: list[int]) -> bool:
+def do_check(nums: SudokuRow) -> bool:
     """
     Given a list of numbers, this function checks
     - all non-zero numbers are mentioned only once
@@ -29,7 +30,7 @@ def do_check(nums: list[int]) -> bool:
     return unique and correct
 
 
-def check_solution(sudoku_square: list[list[int]]) -> bool:
+def check_solution(sudoku_square: SudokuSquare) -> bool:
     """
     Check if the given sudoku square is not breaking the following rule
     Each column, row, predefined 3X3 square should have

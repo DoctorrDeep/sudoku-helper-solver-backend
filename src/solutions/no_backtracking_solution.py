@@ -3,9 +3,10 @@ from pprint import pprint
 
 from src import example_problems
 from src.helpers.suggestions import get_suggestions
+from src.helpers.types import SudokuSquare
 
 
-def try_fill_in(sudoku_square: list[list[int]]) -> list[list[int]]:
+def try_fill_in(sudoku_square: SudokuSquare) -> SudokuSquare:
     """
     Attempts will be made to fill in given sudoku square.
 

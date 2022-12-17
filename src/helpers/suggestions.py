@@ -3,9 +3,10 @@ import copy
 from src.helpers.verifiers import check_solution
 
 from . import ALL_XYS
+from .types import SudokuSquare
 
 
-def get_suggestions(sudoku_square: list[list[int]]) -> dict[tuple[int, int], list[int]]:
+def get_suggestions(sudoku_square: SudokuSquare) -> dict[tuple[int, int], list[int]]:
     """
     Loop over all cells and for each cell get list of possible options
     """
@@ -26,3 +27,9 @@ def get_suggestions(sudoku_square: list[list[int]]) -> dict[tuple[int, int], lis
             suggestions[xy] = temp_values
 
     return suggestions
+
+
+def get_max_suggestions_count(sudoku_square: list[list[int]]) -> int:
+    suggestions_dict = get_suggestions(sudoku_square)
+    suggestions_counts = [len(i) for i in suggestions_dict.values()]
+    return max(suggestions_counts)
