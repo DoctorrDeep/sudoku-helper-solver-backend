@@ -34,8 +34,9 @@ The challenge is to NOT watch the video again or research any type of backtracki
 
 - ~~run ALL linters and tests through GH actions~~
 - ~~All solvers to use the Sudoku class, remove, non class solvers~~
-- move get_suggestions to class method
+- ~~move get_suggestions to class method~~
 - Make REST service out of the solver with
+  - endpoint to create a new problem
   - endpoint for hints when a problem is sent
   - endpoint for solutions when a problem is sent
 - drop cli

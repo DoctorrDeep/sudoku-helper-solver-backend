@@ -3,7 +3,6 @@ import copy
 
 from src.helpers import ALL_XYS
 from src.helpers.types import SudokuSquare
-from src.helpers.verifiers import check_solution
 from src.sudoku_cube import Sudoku
 
 
@@ -14,7 +13,7 @@ def check_insert(sudoku_square: SudokuSquare, x: int, y: int, val_to_insert: int
     """
     new_sudoku_square = copy.deepcopy(sudoku_square)
     new_sudoku_square[x][y] = val_to_insert
-    return check_solution(new_sudoku_square)
+    return Sudoku.check_solution(new_sudoku_square)
 
 
 def solve_square(sudoku: Sudoku):
