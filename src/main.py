@@ -11,13 +11,16 @@ sudoku = Sudoku(example_problems.MEDIUM_SUDOKU)
 # sudoku = Sudoku(example_problems.DIFFICULT_SUDOKU)
 print(sudoku)
 
+
 # Get all possible solutions to a sudoku printed in terminal using the backtracking algorithm
 sudoku.run_solver(solve_square)
 print(sudoku)
 
+
 # Create a sudoku problem and view the unfinished square
 solved_sudoku = create_sudoku_problem()
 solved_sudoku.print_problem()
+solved_sudoku.print_suggestions()
 
 
 # Get last possible solution using no_backtracking

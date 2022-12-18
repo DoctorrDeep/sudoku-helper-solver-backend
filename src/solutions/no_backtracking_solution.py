@@ -1,7 +1,6 @@
 """Solve Sudoku using recursion only"""
 import copy
 
-from src.helpers.suggestions import get_suggestions
 from src.sudoku_cube import Sudoku
 
 
@@ -26,7 +25,7 @@ def try_fill_in(sudoku: Sudoku):
 
     if found_a_solution:
         # update suggestions dict
-        sudoku.suggestions = get_suggestions(sudoku.sudoku_square_copy)
+        sudoku.get_suggestions()
         # If the square is full, then return from function
         if sudoku.check_solution(sudoku.sudoku_square_copy, strict=True):
             sudoku.solutions.append(copy.deepcopy(sudoku.sudoku_square_copy))
