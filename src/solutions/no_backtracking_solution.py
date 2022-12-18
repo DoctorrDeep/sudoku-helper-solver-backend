@@ -1,54 +1,36 @@
 """Solve Sudoku using recursion only"""
-from pprint import pprint
+import copy
 
-from src import example_problems
 from src.helpers.suggestions import get_suggestions
-from src.helpers.types import SudokuSquare
+from src.sudoku_cube import Sudoku
 
 
-def try_fill_in(sudoku_square: SudokuSquare) -> SudokuSquare:
+def try_fill_in(sudoku: Sudoku):
     """
-    Attempts will be made to fill in given sudoku square.
-
-    Returns:
-    - as much filled in sudoku square
-    - options in rest of cells
+    Attempts will be made to fill in given sudoku square where only 1 suggestion is to be had
     """
 
     found_a_solution = False
-    print("received Sudoku square:")
-    pprint(sudoku_square)
-
-    # get all possible values for each cell while following the rules
-    sudoku_dict = get_suggestions(sudoku_square)
 
     # Update sudoku square with found solutions
-    for xy, sudo_val in sudoku_dict.items():
+    for xy, sudo_val in sudoku.suggestions.items():
         if len(sudo_val) == 1:
             found_a_solution = True
-            sudoku_square[xy[0]][xy[1]] = sudo_val[0]
+            sudoku.sudoku_square_copy[xy[0]][xy[1]] = sudo_val[0]
 
     # Remove unique solutions after updating sudoku square
-    if sudoku_dict:
-        del_keys = [key for key, val in sudoku_dict.items() if len(val) == 1]
+    if sudoku.suggestions:
+        del_keys = [key for key, val in sudoku.suggestions.items() if len(val) == 1]
         for key in del_keys:
-            del sudoku_dict[key]
+            del sudoku.suggestions[key]
 
-    # Make recursive call with new sudoku square as input
     if found_a_solution:
-        try_fill_in(sudoku_square)
-
-    return sudoku_square
-
-
-if __name__ == "__main__":
-
-    # Select a sudoku problem
-    sudoku = example_problems.DIFFICULT_SUDOKU
-
-    # Get last possible solution
-    last_solution = try_fill_in(sudoku)
-    print("Correct intermediate solution: ")
-    pprint(last_solution)
-    print("Options for incomplete cells: ")
-    pprint(get_suggestions(last_solution))
+        # update suggestions dict
+        sudoku.suggestions = get_suggestions(sudoku.sudoku_square_copy)
+        # If the square is full, then return from function
+        if sudoku.check_solution(sudoku.sudoku_square_copy, strict=True):
+            sudoku.solutions.append(copy.deepcopy(sudoku.sudoku_square_copy))
+            return
+        else:
+            # Make recursive call with updated sudoku square as input
+            try_fill_in(sudoku)

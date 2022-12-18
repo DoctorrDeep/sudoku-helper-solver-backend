@@ -2,8 +2,9 @@
 import pygame
 
 from src import example_problems
-from src.helpers.suggestions import get_suggestions
-from src.solutions import backtracking_solution, no_backtracking_solution
+from src.solutions.backtracking_solution import solve_square
+from src.solutions.no_backtracking_solution import try_fill_in
+from src.sudoku_cube import Sudoku
 
 # Let user choose whether they want help or they want a solution
 print("Welcome to the sudoku helper solver.")
@@ -30,17 +31,19 @@ else:
 
 # Set the complexity and mode of help according to user choices above
 if difficult:
-    sudoku = example_problems.DIFFICULT_SUDOKU
+    sudoku = Sudoku(example_problems.DIFFICULT_SUDOKU)
 else:
-    sudoku = example_problems.MEDIUM_SUDOKU
+    sudoku = Sudoku(example_problems.MEDIUM_SUDOKU)
 
 if get_sol:
-    last_solution = backtracking_solution.solve_and_return_result(sudoku)
+    sudoku.run_solver(solve_square)
+    last_solution = sudoku.solutions[0]
 else:
-    last_solution = no_backtracking_solution.try_fill_in(sudoku)
+    sudoku.run_solver(try_fill_in)
+    last_solution = sudoku.sudoku_square_copy
 
 # Get unknown cells possible solutions
-solutions_dict = get_suggestions(sudoku)
+solutions_dict = sudoku.suggestions
 
 # Pygame setup for view window
 dimension = 720
