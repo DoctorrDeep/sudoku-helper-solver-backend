@@ -15,7 +15,7 @@ class Sudoku:
         self.suggestions: dict[tuple[int, int], list[int]] = get_suggestions(sudoku_square)
 
     @staticmethod
-    def check_solution(sudoku_square: SudokuSquare) -> bool:
+    def check_solution(sudoku_square: SudokuSquare, strict: bool = False) -> bool:
         """
         Check if the given sudoku square is not breaking the following rule
         Each column, row, predefined 3X3 square should have
@@ -27,9 +27,11 @@ class Sudoku:
         - not satisfied (False)
         """
 
+        check = Sudoku.strict_check if strict else Sudoku.check
+
         # Check all rows
         for row in sudoku_square:
-            if not Sudoku.check(row):
+            if not check(row):
                 return False
 
         # Check all columns
@@ -37,13 +39,13 @@ class Sudoku:
             temp = []
             for row in sudoku_square:
                 temp.append(row[i])
-            if not Sudoku.check(temp):
+            if not check(temp):
                 return False
 
         # Check all predefined 3x3 cubes
         for cube_xy in CUBE_XYS:
             cube_list = [sudoku_square[xy[0]][xy[1]] for xy in cube_xy]
-            if not Sudoku.check(cube_list):
+            if not check(cube_list):
                 return False
 
         # Since all 3 have not returned False, all checks must have passed
@@ -72,14 +74,15 @@ class Sudoku:
 
         return True
 
-    def strict_check(self, nums: SudokuRow) -> bool:
+    @staticmethod
+    def strict_check(nums: SudokuRow) -> bool:
         """
         Extends check method above with strict checks
         for presence of empty(value 0) cells.
         TODO: Remove if unnecessary/unused
         """
         if all(nums):
-            return self.check(nums)
+            return Sudoku.check(nums)
         return False
 
     @timer
@@ -90,7 +93,10 @@ class Sudoku:
     def __str__(self):
         if len(self.solutions) > 0:
             return "solution\n" + "\n".join([str(i) for i in self.solutions]) + "\nend of solution"
-        return "problem\n" + "\n".join([str(i) for i in self.sudoku_square_copy]) + "\nend of problem"
+        return "problem\n" + "\n".join([str(i) for i in self.sudoku_square]) + "\nend of problem"
 
     def print_problem(self):
+        print("problem\n" + "\n".join([str(i) for i in self.sudoku_square]) + "\nend of problem")
+
+    def print_incomplete_solution(self):
         print("problem\n" + "\n".join([str(i) for i in self.sudoku_square_copy]) + "\nend of problem")
