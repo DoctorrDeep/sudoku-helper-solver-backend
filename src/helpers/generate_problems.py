@@ -4,15 +4,19 @@ import random
 from src.helpers import ALL_XYS
 from src.helpers.errors import UnknownSolutionSpace
 from src.helpers.timer import timer
+from src.helpers.types import Level
 from src.solutions.backtracking_solution import solve_square
 from src.sudoku_cube import Sudoku
 
 MAX_COUNT_OF_CELLS_TO_EMPTY = 30
-MAX_COUNT_OF_SUGGESTIONS_IN_ANY_CELL = 3
+MAX_SUGGESTION_SETTINGS = {
+    Level.easy: 2,
+    Level.difficult: 3,
+}
 
 
 @timer
-def create_sudoku_problem() -> Sudoku:
+def create_sudoku_problem(level: Level) -> Sudoku:
     """
     Generate a solved sudoku cube and start removing
     numbers till the highest number of solutions
@@ -50,7 +54,8 @@ def create_sudoku_problem() -> Sudoku:
     for loc in elements_to_empty:
         sudoku_square.sudoku_square[loc[0]][loc[1]] = 0
         sudoku_square.sudoku_square_copy[loc[0]][loc[1]] = 0
-        if sudoku_square.get_max_suggestions_count() >= MAX_COUNT_OF_SUGGESTIONS_IN_ANY_CELL:
+        sudoku_square.update_suggestions()
+        if sudoku_square.get_max_suggestions_count() >= MAX_SUGGESTION_SETTINGS.get(level, 0):
             return sudoku_square
 
     raise UnknownSolutionSpace(

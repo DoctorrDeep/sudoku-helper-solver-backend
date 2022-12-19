@@ -1,14 +1,15 @@
 import pytest
 
-from src.example_problems import EASY_SUDOKU, SOLVED_SUDOKU
 from src.solutions.backtracking_solution import solve_square
 from src.sudoku_cube import Sudoku
+from tests.data import EASY_SUDOKU, SOLVED_SUDOKU
 
 SUDOKU = Sudoku(EASY_SUDOKU)
 SUDOKU.run_solver(solve_square)
 
 test_solution_and_length_of_suggestions = [
     (SUDOKU.solutions[0], SOLVED_SUDOKU),
+    (len(SUDOKU.solutions), 1),
     (len(SUDOKU.suggestions.keys()), 3),
 ]
 

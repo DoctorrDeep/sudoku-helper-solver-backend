@@ -1,10 +1,10 @@
 """Solve or help solving sudoku problems with visual results"""
 import pygame
 
-from src import example_problems
 from src.solutions.backtracking_solution import solve_square
 from src.solutions.no_backtracking_solution import try_fill_in
 from src.sudoku_cube import Sudoku
+from src.visualizer import example_problems
 
 # Let user choose whether they want help or they want a solution
 print("Welcome to the sudoku helper solver.")

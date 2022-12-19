@@ -10,9 +10,17 @@ pyenv shell 3.10.4
 poetry env use python3.10
 poetry install
 poetry shell
-python src/visualizer/visualize_sudoku_solution.py
 ```
-  - at present this shows how far we get with the non-backtracking algorithm
+- run help file to understand/debug app
+```bash
+python src/visualizer/help.py
+```
+- run local server for development
+```bash
+uvicorn src.main:app --reload
+```
+- then visit [http://127.0.0.1:8000](http://127.0.0.1:8000) for normal api
+- and [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) for OpenAPI docs
 
 ## Inspiration
 
@@ -22,24 +30,31 @@ Cut to two weeks later, I am still thinking of the video. I find myself attempti
 
 The challenge is to NOT watch the video again or research any type of backtracking algorithm.
 
-## How the project is arranged
 
-- `visualize_sudoku_solution.py`
-  - this needs a sudoku square as input, which it gets from `starter_sudoku_sets.py`
-  - it uses one of the solvers
-    - `no_backtracking_solution.py`
-    - `backtracking_solution.py`
 
 ## TODO
+
+ #### Deprecated
+
+- Make pygame flip between initial problem and presented solution periodically
+- Make each iteration of recursion visual, make it pretty
+
+
+#### Active
 
 - ~~run ALL linters and tests through GH actions~~
 - ~~All solvers to use the Sudoku class, remove, non class solvers~~
 - ~~move get_suggestions to class method~~
-- Make REST service out of the solver with
-  - endpoint to create a new problem
-  - endpoint for hints when a problem is sent
-  - endpoint for solutions when a problem is sent
-- drop cli
-- Make pytests for all functions
-- Make pygame flip between initial problem and presented solution periodically
-- Make each iteration of recursion visual, make it pretty
+- ~~Make pytests for all functions~~
+- ~~convert cli + pygame into help-only state, i.e. not deleted, but hidden and not run unless local+explicit~~
+- Make REST service out of the use cases using FastAPI with the following requests
+  - ~~endpoint to create a new problem (create, as endpoint)~~
+  - ~~endpoint for hints when a problem is sent (hints, as endpoint)~~
+  - ~~endpoint for solutions when a problem is sent (solve, as endpoint)~~
+  - Add better Documents/example body
+  - handle exceptions
+  - set timeouts for difficult problem creation
+  - write rest-api tests
+- Terraform code to deploy
+  - dockerize app?
+- Link to React App locally
