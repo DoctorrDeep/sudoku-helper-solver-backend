@@ -4,7 +4,7 @@ from typing import Callable
 
 from src.helpers import ALL_XYS, CUBE_XYS
 from src.helpers.timer import timer
-from src.helpers.types import SudokuRow, SudokuSquare
+from src.helpers.types import SudokuRow, SudokuSquare, SudokuSuggestions
 
 
 class Sudoku:
@@ -12,35 +12,35 @@ class Sudoku:
         self.sudoku_square = sudoku_square
         self.sudoku_square_copy: SudokuSquare = copy.deepcopy(sudoku_square)
         self.solutions: list[SudokuSquare] = []
-        self.suggestions: dict[tuple[int, int], list[int]] = self.get_suggestions()
+        self.suggestions: SudokuSuggestions = Sudoku.get_suggestions(sudoku_square)
 
-    def get_suggestions(self):
+    def update_suggestions(self):
+        self.suggestions = Sudoku.get_suggestions(self.sudoku_square)
+
+    def get_max_suggestions_count(self) -> int:
+        return max([len(i) for i in self.suggestions.values()])
+
+    @staticmethod
+    def get_suggestions(sudoku_square: SudokuSquare) -> SudokuSuggestions:
         """
-        Loop over all cells and for each cell get list of possible options
+        Loop over all cells and for each empty cell get list of possible options
         """
         suggestions = dict()
 
         # loop over all cells in sudoku square
         for xy in ALL_XYS:
-            if not self.sudoku_square_copy[xy[0]][xy[1]]:
+            if not sudoku_square[xy[0]][xy[1]]:
                 temp_values = []
 
                 # try each of the allowed numbers in chosen cell
                 for i in range(1, 10):
-                    self.sudoku_square_copy[xy[0]][xy[1]] = i
-                    if Sudoku.check_solution(self.sudoku_square_copy):
+                    sudoku_square[xy[0]][xy[1]] = i
+                    if Sudoku.check_solution(sudoku_square):
                         temp_values.append(i)
-                    self.sudoku_square_copy[xy[0]][xy[1]] = 0
+                    sudoku_square[xy[0]][xy[1]] = 0
 
                 suggestions[xy] = temp_values
-
-        self.suggestions = suggestions
         return suggestions
-
-    def get_max_suggestions_count(self) -> int:
-        self.get_suggestions()
-        suggestions_counts = [len(i) for i in self.suggestions.values()]
-        return max(suggestions_counts)
 
     @staticmethod
     def check_solution(sudoku_square: SudokuSquare, strict: bool = False) -> bool:
@@ -107,6 +107,7 @@ class Sudoku:
         """
         Extends check method above with strict checks
         for presence of empty(value 0) cells.
+        TODO: Remove method. This methods use keeps getting refactored away!
         """
         if all(nums):
             return Sudoku.check(nums)
