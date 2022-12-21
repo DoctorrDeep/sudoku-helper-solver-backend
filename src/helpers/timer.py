@@ -6,7 +6,7 @@ def timer(func):
         start = time.perf_counter()
         result = func(*args, **kwargs)
         stop = time.perf_counter()
-        print(f"{func.__name__}: {round(stop - start,2)}s to excute.")
+        print(f"{func.__name__}: {stop - start:.2f}s to excute.")
         return result
 
     return timer_wrapper

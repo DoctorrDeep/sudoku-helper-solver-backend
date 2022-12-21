@@ -2,16 +2,21 @@ import copy
 import random
 
 from src.helpers import ALL_XYS
-from src.helpers.errors import UnknownSolutionSpace
+from src.helpers.errors import UnknownSolutionError
 from src.helpers.timer import timer
 from src.helpers.types import Level
+from src.settings import (
+    COUNT_OF_CELLS_TO_FILL,
+    MAX_SUGGESTIONS_DIFFICULT,
+    MAX_SUGGESTIONS_EASY,
+)
 from src.solutions.backtracking_solution import solve_square
 from src.sudoku_cube import Sudoku
 
 MAX_COUNT_OF_CELLS_TO_EMPTY = 30
 MAX_SUGGESTION_SETTINGS = {
-    Level.easy: 2,
-    Level.difficult: 3,
+    Level.easy: MAX_SUGGESTIONS_EASY,
+    Level.difficult: MAX_SUGGESTIONS_DIFFICULT,
 }
 
 
@@ -32,7 +37,7 @@ def create_sudoku_problem(level: Level) -> Sudoku:
 
         # Randomly fill a few spots in the empty square to generate different problems
         spots_filled = 0
-        while spots_filled < 10:
+        while spots_filled <= COUNT_OF_CELLS_TO_FILL:
             rand_xy = random.choice(ALL_XYS)
             empty_square[rand_xy[0]][rand_xy[1]] = random.choice(range(1, 10))
             if Sudoku.check_solution(empty_square):
@@ -48,7 +53,7 @@ def create_sudoku_problem(level: Level) -> Sudoku:
     if sudoku_square.solutions:
         sudoku_square.sudoku_square = random.choice(sudoku_square.solutions)
     else:
-        raise UnknownSolutionSpace("Generated problem with empty solutions.")
+        raise UnknownSolutionError("Generated problem with empty solutions.")
     sudoku_square.sudoku_square_copy = copy.deepcopy(sudoku_square.sudoku_square)
     elements_to_empty = random.sample(ALL_XYS, MAX_COUNT_OF_CELLS_TO_EMPTY)
     for loc in elements_to_empty:
@@ -58,6 +63,6 @@ def create_sudoku_problem(level: Level) -> Sudoku:
         if sudoku_square.get_max_suggestions_count() >= MAX_SUGGESTION_SETTINGS.get(level, 0):
             return sudoku_square
 
-    raise UnknownSolutionSpace(
+    raise UnknownSolutionError(
         "Number of suggestions remains low even after removing %i out of 81 cells" % MAX_COUNT_OF_CELLS_TO_EMPTY
     )
