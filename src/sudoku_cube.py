@@ -3,6 +3,7 @@ from pprint import pprint
 from typing import Callable
 
 from src.helpers import ALL_XYS, CUBE_XYS
+from src.helpers.errors import UnknownSolutionError
 from src.helpers.timer import timer
 from src.helpers.types import SudokuRow, SudokuSquare, SudokuSuggestions
 
@@ -114,8 +115,10 @@ class Sudoku:
         return False
 
     @timer
-    def run_solver(self, solver_func: Callable):
-        solver_func(self)
+    def run_solver(self, solver_func: Callable, **kwargs):
+        solver_func(self, **kwargs)
+        if not self.solutions:
+            raise UnknownSolutionError("Problem could not be solved. PLease check if the problem was valid.")
         return None
 
     def __str__(self):

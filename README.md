@@ -51,9 +51,9 @@ The challenge is to NOT watch the video again or research any type of backtracki
   - ~~endpoint to create a new problem (create, as endpoint)~~
   - ~~endpoint for hints when a problem is sent (hints, as endpoint)~~
   - ~~endpoint for solutions when a problem is sent (solve, as endpoint)~~
-  - Add better Documents/example body
-  - handle exceptions
-  - set timeouts for difficult problem creation
+  - ~~Add better Documents/example body~~
+  - ~~handle exceptions~~
+  - ~~set timeouts for difficult problem creation~~
   - write rest-api tests
 - Terraform code to deploy
   - dockerize app?

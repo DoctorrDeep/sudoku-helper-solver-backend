@@ -1,8 +1,9 @@
 import pytest
 
+from src.helpers.errors import UnknownSolutionError
 from src.solutions.no_backtracking_solution import try_fill_in
 from src.sudoku_cube import Sudoku
-from tests.data import EASY_SUDOKU, SOLVED_SUDOKU
+from tests.data import EASY_SUDOKU, SOLVED_SUDOKU, UNSOLVABLE_SUDOKU
 
 SUDOKU = Sudoku(EASY_SUDOKU)
 SUDOKU.run_solver(try_fill_in)
@@ -28,3 +29,9 @@ def test_easy_no_backtracking_solution(test_data, expected):
 @pytest.mark.parametrize("test_data,expected", test_suggestions)
 def test_easy_no_backtracking_suggestions(test_data, expected):
     assert SUDOKU.suggestions[test_data] == expected
+
+
+def test_unsolvable_problem():
+    sudoku = Sudoku(UNSOLVABLE_SUDOKU)
+    with pytest.raises(UnknownSolutionError):
+        sudoku.run_solver(try_fill_in)
