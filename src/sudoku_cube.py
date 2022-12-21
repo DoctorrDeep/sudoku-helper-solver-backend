@@ -1,4 +1,5 @@
 import copy
+import time
 from pprint import pprint
 from typing import Callable
 
@@ -116,7 +117,12 @@ class Sudoku:
 
     @timer
     def run_solver(self, solver_func: Callable, **kwargs):
-        solver_func(self, **kwargs)
+        if "start_time" not in kwargs.keys():
+            start_time = time.perf_counter()
+        else:
+            start_time = kwargs["start_time"]
+            del kwargs["start_time"]
+        solver_func(self, start_time=start_time, **kwargs)
         if not self.solutions:
             raise UnknownSolutionError("Problem could not be solved. PLease check if the problem was valid.")
         return None

@@ -40,4 +40,4 @@ def test_unsolvable_problem():
 def test_timeout():
     sudoku = Sudoku(EASY_SUDOKU)
     with pytest.raises(SolverTimeoutError):
-        sudoku.run_solver(solve_square, timeout=0.01)
+        sudoku.run_solver(solve_square, start_time=0, timeout=0.001)

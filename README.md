@@ -2,7 +2,7 @@
 
 ## Purpose of project
 
-## How to run
+## How to run locally : BARE
 
 - run on python 3.10.4 and up
 ```bash
@@ -21,6 +21,17 @@ uvicorn src.main:app --reload
 ```
 - then visit [http://127.0.0.1:8000](http://127.0.0.1:8000) for normal api
 - and [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) for OpenAPI docs
+
+## How to run locally : Inside a Docker container
+
+- `make build`: This will build the docker image, provided you can run make files and have docker installed
+- `make run`: This will run the built image in detached mode
+- At this stage, you have the following options:
+  - Visit [http://0.0.0.0:80/docs](http://0.0.0.0:80/docs) to visit and interact with the API
+  - Look up the logs of the applicaton using `docker logs -tf sudoku_solver_fastapi`
+  - Get inside the container `docker exec -it sudoku_solver_fastapi bash`
+- `make clean`: To stop and remove the container
+- `make clean-image`: To remove the docker image
 
 ## Inspiration
 
