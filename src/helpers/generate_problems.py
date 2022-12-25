@@ -2,13 +2,14 @@ import copy
 import random
 
 from src.helpers import ALL_XYS
-from src.helpers.errors import UnknownSolutionError
+from src.helpers.errors import SolverTimeoutError, UnknownSolutionError
 from src.helpers.timer import timer
 from src.helpers.types import Level
 from src.settings import (
     COUNT_OF_CELLS_TO_FILL,
     MAX_SUGGESTIONS_DIFFICULT,
     MAX_SUGGESTIONS_EASY,
+    TIMEOUT_FOR_RECURSION,
 )
 from src.solutions.backtracking_solution import solve_square
 from src.sudoku_cube import Sudoku
@@ -28,14 +29,11 @@ def create_sudoku_problem(level: Level) -> Sudoku:
     to any cell in the full square exceeds 2
     """
 
-    def generate_sudoku_square() -> Sudoku:
+    def generate_empty_square_with_random_fills() -> Sudoku:
         """
-        Generate an empty sudoku square and use
-        backtracking to fill it in.
+        Generate an empty sudoku square and fill a few spots in randomly but without breaking rules
         """
         empty_square = [[0] * 9 for _ in range(9)]
-
-        # Randomly fill a few spots in the empty square to generate different problems
         spots_filled = 0
         while spots_filled <= COUNT_OF_CELLS_TO_FILL:
             rand_xy = random.choice(ALL_XYS)
@@ -46,7 +44,20 @@ def create_sudoku_problem(level: Level) -> Sudoku:
                 empty_square[rand_xy[0]][rand_xy[1]] = 0
 
         sudoku = Sudoku(empty_square)
-        sudoku.run_solver(solve_square)
+        return sudoku
+
+    def generate_sudoku_square() -> Sudoku:
+        """
+        Use backtracking to fill in a partially filled square.
+        """
+
+        try:
+            sudoku = generate_empty_square_with_random_fills()
+            sudoku.run_solver(solve_square)
+        except SolverTimeoutError:
+            # If timeout reached, try one more time with a new square.
+            sudoku = generate_empty_square_with_random_fills()
+            sudoku.run_solver(solve_square, timeout=TIMEOUT_FOR_RECURSION + 5)
         return sudoku
 
     sudoku_square = generate_sudoku_square()

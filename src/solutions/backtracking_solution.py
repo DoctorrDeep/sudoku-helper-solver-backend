@@ -19,12 +19,13 @@ def check_insert(sudoku_square: SudokuSquare, x: int, y: int, val_to_insert: int
     return Sudoku.check_solution(new_sudoku_square)
 
 
-def solve_square(sudoku: Sudoku, start_time: float = time.perf_counter(), timeout: float = TIMEOUT_FOR_RECURSION):
+def solve_square(sudoku: Sudoku, start_time: float, timeout: float = TIMEOUT_FOR_RECURSION):
     """
     Backtracking algorithm where valid solutions are appended to
     the solutions property of Sudoku object.
     """
     now = time.perf_counter()
+
     if now - start_time > timeout:
         raise SolverTimeoutError(
             "Took more than %f to solve (%f s) using the backtracking method." % (timeout, now - start_time)

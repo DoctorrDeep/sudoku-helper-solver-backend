@@ -7,7 +7,7 @@ from src.settings import TIMEOUT_FOR_RECURSION
 from src.sudoku_cube import Sudoku
 
 
-def try_fill_in(sudoku: Sudoku, start_time: float = time.perf_counter()):
+def try_fill_in(sudoku: Sudoku, start_time: float):
     """
     Attempts will be made to fill in given sudoku square where only 1 suggestion is to be had
     """

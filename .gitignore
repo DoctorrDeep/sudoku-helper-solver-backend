@@ -129,3 +129,13 @@ dmypy.json
 .pyre/
 
 .idea/
+
+# terraform
+.terraform/
+.terraform.*
+terraform.tfvars
+terraform.tfstate*
+
+# saved tarballs
+*.tar
+*.tar.gz
