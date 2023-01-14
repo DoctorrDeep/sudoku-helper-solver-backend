@@ -8,7 +8,7 @@ run:
 	@docker run --name=sudoku_solver_fastapi \
 				--network=sudoku_solver_net.local \
 				--rm=true \
-				-p 80:80 \
+				-p 8000:8000 \
 				-itd sudoku_solver_img:v1.0
 
 save:

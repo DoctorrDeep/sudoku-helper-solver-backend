@@ -37,7 +37,7 @@ resource "linode_instance" "sudoku_resource_instance" {
       "apt-get install -y docker.io",
       "docker network create -d bridge sudoku_solver_net.local",
       "docker load -i sudoku_solver_img.tar.gz",
-      "docker run --name=sudoku_solver_fastapi --network=sudoku_solver_net.local --rm=true -p 80:80 -itd sudoku_solver_img:v1.0",
+      "docker run --name=sudoku_solver_fastapi --network=sudoku_solver_net.local --rm=true -p 8000:8000 -itd sudoku_solver_img:v1.0",
     ]
 
     connection {
@@ -73,7 +73,7 @@ resource "linode_firewall" "sudoku_firewall" {
     label    = "allow-http"
     action   = "ACCEPT"
     protocol = "TCP"
-    ports    = "80"
+    ports    = "8000"
     ipv4     = ["0.0.0.0/0"]
     ipv6     = ["ff00::/8"]
   }
