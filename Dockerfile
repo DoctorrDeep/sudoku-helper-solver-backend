@@ -31,7 +31,7 @@ RUN ${HOME}/.pyenv/versions/3.10.4/bin/pip install poetry
 RUN ${HOME}/.pyenv/versions/3.10.4/bin/python -m poetry install --no-dev
 
 # Expose the default port
-EXPOSE 80
+EXPOSE 8000
 
 # Set the entrypoint to run the Flask app
-ENTRYPOINT ["/root/.pyenv/versions/3.10.4/bin/python", "-m","poetry", "run", "uvicorn", "src.main:app", "--port", "80", "--host", "0.0.0.0"]
+ENTRYPOINT ["/root/.pyenv/versions/3.10.4/bin/python", "-m","poetry", "run", "uvicorn", "src.main:app", "--port", "8000", "--host", "0.0.0.0"]

@@ -11,7 +11,10 @@ app = FastAPI()
 
 @app.get("/")
 async def health_check():
-    return {"status": "ok"}
+    return {
+        "status": "ok",
+        "docs": {"local": "http://0.0.0.0:8000/docs", "production": "https://ambardas.nl:8000/docs"},
+    }
 
 
 @app.get("/create/{level}", response_model=SudokuSquare)

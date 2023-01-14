@@ -27,7 +27,7 @@ uvicorn src.main:app --reload
 - `make build`: This will build the docker image, provided you can run make files and have docker installed
 - `make run`: This will run the built image in detached mode
 - At this stage, you have the following options:
-  - Visit [http://0.0.0.0:80/docs](http://0.0.0.0:80/docs) to visit and interact with the API
+  - Visit [http://0.0.0.0:8000/docs](http://0.0.0.0:8000/docs) to visit and interact with the API
   - Look up the logs of the applicaton using `docker logs -tf sudoku_solver_fastapi`
   - Get inside the container `docker exec -it sudoku_solver_fastapi bash`
 - `make clean`: To stop and remove the container
