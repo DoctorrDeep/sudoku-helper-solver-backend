@@ -66,6 +66,6 @@ The challenge is to NOT watch the video again or research any type of backtracki
   - ~~handle exceptions~~
   - ~~set timeouts for difficult problem creation~~
   - write rest-api tests
-- Terraform code to deploy
-  - dockerize app?
+- ~~Terraform code to deploy~~
+  - ~~dockerize app?~~
 - Link to React App locally
