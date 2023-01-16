@@ -13,7 +13,7 @@ app = FastAPI()
 async def health_check():
     return {
         "status": "ok",
-        "docs": {"local": "http://0.0.0.0:8000/docs", "production": "https://ambardas.nl:8000/docs"},
+        "docs": {"local": "http://0.0.0.0:8000/docs", "production": "http://ambardas.nl:8000/docs"},
     }
 
 
