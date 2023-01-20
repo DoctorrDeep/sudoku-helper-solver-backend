@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from src.helpers.generate_problems import create_sudoku_problem
 from src.helpers.types import Level, SudokuSquare, SudokuSuggestionsModel
@@ -7,6 +8,14 @@ from src.solutions.no_backtracking_solution import try_fill_in
 from src.sudoku_cube import Sudoku
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/")
