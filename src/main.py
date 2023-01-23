@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.helpers.generate_problems import create_sudoku_problem
@@ -46,6 +46,8 @@ async def create_hints_for_sudoku(sudoku_square: SudokuSquare):
 @app.post("/solve", response_model=SudokuSquare)
 async def get_solution(sudoku_square: SudokuSquare):
     """Solve an incomplete sudoku square"""
+    if not Sudoku.check_solution(sudoku_square):
+        raise HTTPException(status_code=400, detail="Problem set wrongly and will not be solved")
     sudoku = Sudoku(sudoku_square)
     sudoku.run_solver(solve_square)
     return sudoku.solutions[0]
