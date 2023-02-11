@@ -59,8 +59,11 @@ The challenge is to NOT watch the video again or research any type of backtracki
 
 - ~~Better tagging of docker images i.e. no hard-coding~~
 - ~~Push to a docker repository. Use that pipeline instead of doing `docker save` here and `docker load` at the infra-as-code codebase~~
-- Deprecate makefile calls to save+zip docker image
-- create a service that saves incomplete sudoku grids (i.e. problems) into a postgres/sqlite DB using dqlalchemy
+- ~~use sudoku solver package to separate sudoku solver/creator logic from server/microservice/web-api logic~~
+    - ~~use package created locally~~
+    - ~~use package downloaded from pypi~~
+- ~~Deprecate makefile calls to save+zip docker image~~
+- create a service that saves incomplete sudoku grids (i.e. problems) into a postgres/sqlite DB using sqlalchemy
 - create background tasks that check and generate sudoku problems and save to aforementioned DB
 - make a new endpoint that serves problems from the DB and starts background tasks to cleanup/create new rows in DB
 - use redis/celery to manage tasks?

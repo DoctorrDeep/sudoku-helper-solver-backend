@@ -1,11 +1,14 @@
+from ambars_sudoku_solver.helpers.generate_problems import create_sudoku_problem
+from ambars_sudoku_solver.helpers.types import (
+    Level,
+    SudokuSquare,
+    SudokuSuggestionsModel,
+)
+from ambars_sudoku_solver.solvers.backtracking_solution import solve_square
+from ambars_sudoku_solver.solvers.no_backtracking_solution import try_fill_in
+from ambars_sudoku_solver.sudoku_cube import Sudoku
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-
-from src.helpers.generate_problems import create_sudoku_problem
-from src.helpers.types import Level, SudokuSquare, SudokuSuggestionsModel
-from src.solutions.backtracking_solution import solve_square
-from src.solutions.no_backtracking_solution import try_fill_in
-from src.sudoku_cube import Sudoku
 
 app = FastAPI()
 

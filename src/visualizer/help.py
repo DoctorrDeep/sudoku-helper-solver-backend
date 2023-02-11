@@ -1,11 +1,12 @@
 """This file helps onboard users and debug issues. No function benefit during runtime."""
 from pprint import pprint
 
-from src.helpers.generate_problems import create_sudoku_problem
-from src.helpers.types import Level
-from src.solutions.backtracking_solution import solve_square
-from src.solutions.no_backtracking_solution import try_fill_in
-from src.sudoku_cube import Sudoku
+from ambars_sudoku_solver.helpers.generate_problems import create_sudoku_problem
+from ambars_sudoku_solver.helpers.types import Level
+from ambars_sudoku_solver.solutions.backtracking_solution import solve_square
+from ambars_sudoku_solver.solutions.no_backtracking_solution import try_fill_in
+from ambars_sudoku_solver.sudoku_cube import Sudoku
+
 from src.visualizer import example_problems
 
 # Select a sudoku problem
