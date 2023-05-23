@@ -2,6 +2,10 @@
 
 ## Purpose of project
 
+- Personal project to experiment with stuff
+- Look like you know what you are talking about
+- Who am I kidding? Is anyone even reading item number 3 in in a "purpose" list?
+
 ## How to run locally : BARE
 
 - run on python 3.10.4 and up
@@ -24,14 +28,22 @@ uvicorn src.main:app --reload
 
 ## How to run locally : Inside a Docker container
 
-- `make build`: This will build the docker image, provided you can run make files and have docker installed
-- `make run`: This will run the built image in detached mode
+- `make build DOCKER_TAG=v1.0`: This will build the docker image, provided you can run make files and have docker installed
+- `make run DOCKER_TAG=v1.0`: This will run the built image in detached mode
 - At this stage, you have the following options:
   - Visit [http://0.0.0.0:8000/docs](http://0.0.0.0:8000/docs) to visit and interact with the API
   - Look up the logs of the applicaton using `docker logs -tf sudoku_solver_fastapi`
   - Get inside the container `docker exec -it sudoku_solver_fastapi bash`
 - `make clean`: To stop and remove the container
-- `make clean-image`: To remove the docker image
+- `make clean-image DOCKER_TAG=v1.0`: To remove the docker image
+
+## Build and push image to docker-hub
+
+- login to docker-cli: `docker login -u <YOUR_DOCKERHUB_USERNAME>`
+    - notes:
+    - your local gpg key may/maynot be valid right now
+    - have the passphrase key handy
+- `make docker-push DOCKER_TAG=v1.0`
 
 ## Inspiration
 
@@ -41,31 +53,20 @@ Cut to two weeks later, I am still thinking of the video. I find myself attempti
 
 The challenge is to NOT watch the video again or research any type of backtracking algorithm.
 
-
-
 ## TODO
-
- #### Deprecated
-
-- Make pygame flip between initial problem and presented solution periodically
-- Make each iteration of recursion visual, make it pretty
-
 
 #### Active
 
-- ~~run ALL linters and tests through GH actions~~
-- ~~All solvers to use the Sudoku class, remove, non class solvers~~
-- ~~move get_suggestions to class method~~
-- ~~Make pytests for all functions~~
-- ~~convert cli + pygame into help-only state, i.e. not deleted, but hidden and not run unless local+explicit~~
-- Make REST service out of the use cases using FastAPI with the following requests
-  - ~~endpoint to create a new problem (create, as endpoint)~~
-  - ~~endpoint for hints when a problem is sent (hints, as endpoint)~~
-  - ~~endpoint for solutions when a problem is sent (solve, as endpoint)~~
-  - ~~Add better Documents/example body~~
-  - ~~handle exceptions~~
-  - ~~set timeouts for difficult problem creation~~
-  - write rest-api tests
-- ~~Terraform code to deploy~~
-  - ~~dockerize app?~~
-- Link to React App locally
+- ~~Better tagging of docker images i.e. no hard-coding~~
+- ~~Push to a docker repository. Use that pipeline instead of doing `docker save` here and `docker load` at the infra-as-code codebase~~
+- Deprecate makefile calls to save+zip docker image
+- create a service that saves incomplete sudoku grids (i.e. problems) into a postgres/sqlite DB using dqlalchemy
+- create background tasks that check and generate sudoku problems and save to aforementioned DB
+- make a new endpoint that serves problems from the DB and starts background tasks to cleanup/create new rows in DB
+- use redis/celery to manage tasks?
+- use docker-compose instead of docker run to build images and save to dockerhub
+
+#### Deprecated
+
+- Make pygame flip between initial problem and presented solution periodically
+- Make each iteration of recursion visual, make it pretty
