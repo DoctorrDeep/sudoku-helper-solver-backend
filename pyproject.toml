@@ -14,6 +14,7 @@ ambars-sudoku-solver = "^0.1"
 fastapi = "^0.95.2"
 pygame = "^2.4.0"
 uvicorn = "^0.22.0"
+sqlalchemy = "^2.0.3"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.12.0"
@@ -45,7 +46,7 @@ exclude = '''
 profile = "black"
 
 [tool.mypy]
-python_version = "3.10"
+python_version = "3.11"
 
 [tool.pycln]
 all = true
