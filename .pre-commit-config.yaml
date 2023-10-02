@@ -1,42 +1,47 @@
+---
 repos:
-- repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.4.0
-  hooks:
-  - id: end-of-file-fixer
-  - id: trailing-whitespace
-- repo: local
-  hooks:
-  - id: pycln
-    name: remove unused imports
-    types: [python]
-    entry: pycln
-    language: system
-  - id: black-check
-    name: black-check
-    types: [python]
-    entry: black
-    language: system
-  - id: isort-check
-    name: isort-check
-    types: [python]
-    entry: isort
-    language: system
-  - id: flake8-check
-    name: flake8-check
-    types: [python]
-    entry: flake8
-    language: system
-  - id: pytest-check
-    name: pytest-check
-    types: [python]
-    entry: pytest
-    language: system
-    pass_filenames: false
-    always_run: true
-    files: ^tests/*
-  - id: mypy
-    name: mypy
-    types: [python]
-    entry: mypy
-    language: system
-    args: [--ignore-missing-imports]
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v4.4.0
+      hooks:
+          - id: end-of-file-fixer
+          - id: trailing-whitespace
+          - id: check-ast
+          - id: check-json
+          - id: check-merge-conflict
+          - id: check-toml
+          - id: check-yaml
+          - id: no-commit-to-branch
+            args: [--branch, main]
+    - repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
+      rev: 0.2.3
+      hooks:
+          - id: yamlfmt
+    - repo: local
+      hooks:
+          - id: pycln
+            args: [--config=pyproject.toml]
+            name: remove unused imports
+            types: [python]
+            entry: pycln
+            language: system
+          - id: black-check
+            name: black-check
+            types: [python]
+            entry: black
+            language: system
+          - id: isort-check
+            name: isort-check
+            types: [python]
+            entry: isort
+            language: system
+          - id: flake8-check
+            name: flake8-check
+            types: [python]
+            entry: flake8
+            language: system
+          - id: mypy
+            name: mypy
+            types: [python]
+            entry: mypy
+            language: system
+            args: [--ignore-missing-imports]

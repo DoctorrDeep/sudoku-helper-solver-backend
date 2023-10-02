@@ -7,11 +7,13 @@ license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
-pygame = "^2.1.2"
-fastapi = "^0.88.0"
-uvicorn = "^0.20.0"
+python = "^3.11"
 
+ambars-sudoku-solver = "^0.1"
+
+fastapi = "^0.95.2"
+pygame = "^2.4.0"
+uvicorn = "^0.22.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.12.0"
@@ -20,7 +22,15 @@ flake8 = "^6.0.0"
 mypy = "^0.991"
 pre-commit = "^2.20.0"
 pycln = "^2.1.2"
-pytest = "^7.2.0"
+
+#[[tool.poetry.source]]
+#name = "testpypi"
+#url = "https://test.pypi.org/simple/"
+#priority = "supplementary"
+
+[[tool.poetry.source]]
+name = "PyPI"
+priority = "primary"
 
 [tool.black]
 line-length = 120
@@ -39,6 +49,7 @@ python_version = "3.10"
 
 [tool.pycln]
 all = true
+skip-imports = [".venv"]
 
 [build-system]
 requires = ["poetry-core"]
